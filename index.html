@@ -3,8 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meu Perfil | TI e Games</title>
+  <meta name="theme-color" content="#000000">
+  <title>João Pinheiro | TI e Games</title>
+
   <style>
+    :root {
+      --neon: #00ff88;
+      --fundo: #000;
+      --texto: #fff;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -12,35 +20,46 @@
     }
 
     body {
-      background-color: #000;
-      color: #ffffff;
+      background: var(--fundo);
+      color: var(--texto);
       font-family: "Segoe UI", Arial, sans-serif;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    .conteudo {
+      flex: 1;
+      display: flex;
       align-items: center;
       justify-content: center;
-      padding: 24px;
+      padding: 48px 24px 24px;
     }
 
     .card {
       max-width: 720px;
       width: 100%;
-      border: 1px solid #00ff88;
+      border: 1px solid var(--neon);
       border-radius: 16px;
       padding: 40px 32px;
       box-shadow: 0 0 25px rgba(0, 255, 136, 0.25);
-      background: rgba(0, 0, 0, 0.85);
+      background: #000;
     }
 
     h1 {
-      color: #00ff88;
-      text-shadow: 0 0 8px #00ff88, 0 0 18px rgba(0, 255, 136, 0.6);
-      font-size: 2rem;
-      margin-bottom: 8px;
+      color: var(--neon);
+      text-shadow:
+        0 0 8px rgba(0, 255, 136, 0.7),
+        0 0 18px rgba(0, 255, 136, 0.35);
+      font-size: clamp(1.6rem, 4vw, 2rem);
+      line-height: 1.3;
+      margin-bottom: 16px;
+      overflow-wrap: break-word;
     }
 
     h2 {
-      color: #00ff88;
+      color: var(--neon);
       margin-top: 28px;
       margin-bottom: 12px;
       font-size: 1.25rem;
@@ -52,7 +71,7 @@
     }
 
     .destaque {
-      color: #00ff88;
+      color: var(--neon);
       font-weight: bold;
     }
 
@@ -66,18 +85,29 @@
     .botao {
       display: inline-block;
       padding: 12px 22px;
-      border: 1px solid #00ff88;
+      border: 1px solid var(--neon);
       border-radius: 8px;
-      color: #00ff88;
+      color: var(--neon);
       text-decoration: none;
       font-weight: bold;
-      transition: 0.2s;
+      transition:
+        background-color 0.2s,
+        color 0.2s,
+        box-shadow 0.2s,
+        transform 0.2s;
     }
 
-    .botao:hover {
-      background-color: #00ff88;
+    .botao:hover,
+    .botao:focus-visible {
+      background: var(--neon);
       color: #000;
-      box-shadow: 0 0 15px #00ff88;
+      box-shadow: 0 0 15px var(--neon);
+      transform: translateY(-3px);
+    }
+
+    .botao:focus-visible {
+      outline: 2px solid white;
+      outline-offset: 5px;
     }
 
     footer {
@@ -85,41 +115,287 @@
       font-size: 0.85rem;
       color: #9a9a9a;
       text-align: center;
+      line-height: 1.6;
+    }
+
+    /* Cenário decorativo no final da página */
+    .cenario {
+      width: 100%;
+      margin-top: 16px;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .cenario svg {
+      display: block;
+      width: 100%;
+      height: clamp(180px, 24vw, 290px);
+    }
+
+    .linha-neon {
+      fill: none;
+      stroke: var(--neon);
+      stroke-width: 2;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .contorno-preto {
+      fill: #000;
+      stroke: var(--neon);
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+
+    @media (max-width: 480px) {
+      .conteudo {
+        padding: 24px 16px 16px;
+      }
+
+      .card {
+        padding: 28px 22px;
+      }
+
+      .botao {
+        flex: 1;
+        text-align: center;
+      }
     }
   </style>
 </head>
+
 <body>
-  <main class="card">
-    <h1>Olá, eu sou João Francisco Luciano Pinheiro</h1>
-    <p>
-      Profissional de <span class="destaque">suporte e infraestrutura de TI</span>,
-      com experiência em redes, servidores, virtualização, monitoramento e atendimento técnico.
-    </p>
+  <div class="conteudo">
+    <main class="card">
+      <h1>Olá, eu sou João Francisco Luciano Pinheiro</h1>
 
-    <h2>Minha área de atuação</h2>
-    <p>
-      Trabalho com administração de redes, firewalls, VPNs, VLANs, roteamento,
-      servidores Linux e Windows, virtualização com Proxmox e Hyper-V,
-      além de monitoramento e automação de tarefas de TI.
-    </p>
-    <p>
-      Também tenho interesse em desenvolvimento web, criação de relatórios,
-      scripts e soluções que ajudem a facilitar o suporte técnico no dia a dia.
-    </p>
+      <p>
+        Profissional de
+        <span class="destaque">suporte e infraestrutura de TI</span>,
+        com experiência em redes, servidores, virtualização,
+        monitoramento e atendimento técnico.
+      </p>
 
-    <h2>Meus perfis de games</h2>
-    <div class="links">
-      <a class="botao" href="https://www.trueachievements.com/gamer/JFLPinheiro" target="_blank" rel="noopener">
-        Xbox
-      </a>
-      <a class="botao" href="https://steamcommunity.com/id/JFLPinheiro" target="_blank" rel="noopener">
-        Steam
-      </a>
-    </div>
+      <h2>Minha área de atuação</h2>
 
-    <footer>
-      Site de teste criado para praticar HTML, CSS e GitHub Pages.
-    </footer>
-  </main>
+      <p>
+        Trabalho com administração de redes, firewalls, VPNs, VLANs,
+        roteamento, servidores Linux e Windows, virtualização com
+        Proxmox e Hyper-V, além de monitoramento e automação de
+        tarefas de TI.
+      </p>
+
+      <p>
+        Também tenho interesse em desenvolvimento web, criação de
+        relatórios, scripts e soluções que ajudem a facilitar o
+        suporte técnico no dia a dia.
+      </p>
+
+      <h2>Meus perfis de games</h2>
+
+      <div class="links">
+        <a
+          class="botao"
+          href="https://www.trueachievements.com/gamer/JFLPinheiro"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Xbox
+        </a>
+
+        <a
+          class="botao"
+          href="https://steamcommunity.com/id/JFLPinheiro"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Steam
+        </a>
+      </div>
+
+      <footer>
+        Site de teste criado para praticar HTML, CSS e GitHub Pages.
+      </footer>
+    </main>
+  </div>
+
+  <!-- Cenário desenhado em SVG, sem imagens externas -->
+  <div class="cenario" aria-hidden="true">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1200 260"
+      preserveAspectRatio="xMidYMax slice"
+      focusable="false"
+    >
+      <defs>
+        <!-- Tijolos desencontrados -->
+        <pattern
+          id="tijolos"
+          width="120"
+          height="60"
+          patternUnits="userSpaceOnUse"
+        >
+          <path
+            class="linha-neon"
+            d="
+              M 0 0 H 120
+              M 0 30 H 120
+              M 0 60 H 120
+              M 60 0 V 30
+              M 0 30 V 60
+              M 120 30 V 60
+            "
+          />
+        </pattern>
+
+        <!-- Brilho aplicado somente aos desenhos -->
+        <filter
+          id="brilho"
+          x="-30%"
+          y="-50%"
+          width="160%"
+          height="200%"
+          color-interpolation-filters="sRGB"
+        >
+          <feGaussianBlur
+            in="SourceGraphic"
+            stdDeviation="2.5"
+            result="luz"
+          />
+          <feMerge>
+            <feMergeNode in="luz"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+
+        <!-- Tufo de grama: somente linhas -->
+        <g id="grama">
+          <path
+            class="linha-neon"
+            d="
+              M 0 0
+              L 4 -12
+              L 10 -4
+              L 15 -22
+              L 21 -5
+              L 29 -15
+              L 33 0
+            "
+          />
+        </g>
+
+        <!-- Bloco suspenso -->
+        <g id="bloco">
+          <rect
+            class="contorno-preto"
+            width="44"
+            height="44"
+          />
+          <path
+            class="linha-neon"
+            d="M 0 22 H 44 M 22 0 V 22 M 11 22 V 44 M 33 22 V 44"
+          />
+        </g>
+      </defs>
+
+      <g filter="url(#brilho)">
+        <!-- Chão de tijolos -->
+        <rect
+          x="-2"
+          y="200"
+          width="1204"
+          height="62"
+          fill="url(#tijolos)"
+        />
+
+        <path
+          class="linha-neon"
+          d="M 0 200 H 1200"
+        />
+
+        <!-- Grama nas bordas dos canos -->
+        <use href="#grama" x="35" y="200"/>
+        <use href="#grama" x="80" y="200"/>
+        <use href="#grama" x="280" y="200"/>
+        <use href="#grama" x="330" y="200"/>
+        <use href="#grama" x="490" y="200"/>
+        <use href="#grama" x="550" y="200"/>
+        <use href="#grama" x="725" y="200"/>
+        <use href="#grama" x="780" y="200"/>
+        <use href="#grama" x="1040" y="200"/>
+        <use href="#grama" x="1120" y="200"/>
+
+        <!-- Cano esquerdo -->
+        <rect
+          class="contorno-preto"
+          x="160"
+          y="112"
+          width="76"
+          height="88"
+        />
+        <rect
+          class="contorno-preto"
+          x="149"
+          y="90"
+          width="98"
+          height="24"
+        />
+        <path
+          class="linha-neon"
+          d="M 171 125 V 188 M 225 125 V 188"
+        />
+
+        <!-- Cano central menor -->
+        <rect
+          class="contorno-preto"
+          x="628"
+          y="155"
+          width="64"
+          height="45"
+        />
+        <rect
+          class="contorno-preto"
+          x="618"
+          y="134"
+          width="84"
+          height="23"
+        />
+        <path
+          class="linha-neon"
+          d="M 639 168 V 190 M 681 168 V 190"
+        />
+
+        <!-- Cano direito maior -->
+        <rect
+          class="contorno-preto"
+          x="920"
+          y="77"
+          width="86"
+          height="123"
+        />
+        <rect
+          class="contorno-preto"
+          x="908"
+          y="52"
+          width="110"
+          height="27"
+        />
+        <path
+          class="linha-neon"
+          d="M 933 92 V 187 M 993 92 V 187"
+        />
+
+        <!-- Plataforma de tijolos suspensos -->
+        <use href="#bloco" x="355" y="58"/>
+        <use href="#bloco" x="399" y="58"/>
+        <use href="#bloco" x="443" y="58"/>
+
+        <!-- Pequenos blocos à direita -->
+        <use href="#bloco" x="740" y="35"/>
+        <use href="#bloco" x="784" y="35"/>
+      </g>
+    </svg>
+  </div>
 </body>
 </html>
