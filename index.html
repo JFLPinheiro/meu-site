@@ -5,316 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#000000">
   <title>João Pinheiro | TI e Games</title>
-
   <style>
-    :root {
-      --neon: #00ff88;
-      --fundo: #000;
-      --texto: #fff;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    :root { --neon: #00ff88; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: var(--fundo);
-      color: var(--texto);
+      background: #000; color: #fff;
       font-family: "Segoe UI", Arial, sans-serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
+      min-height: 100vh; min-height: 100svh;
+      display: flex; flex-direction: column;
+      overflow-x: hidden; isolation: isolate;
     }
-
+    .fundo-animado {
+      position: fixed; inset: 0; z-index: -1;
+      overflow: hidden; pointer-events: none; background: #000;
+    }
+    .particula {
+      position: absolute; bottom: -30px; left: var(--x);
+      width: var(--tamanho); height: var(--tamanho);
+      border: 1px solid var(--neon); background: transparent;
+      box-shadow: 0 0 8px rgba(0,255,136,.45); opacity: 0;
+      animation: subir var(--duracao) linear infinite;
+      animation-delay: var(--atraso);
+    }
+    @keyframes subir {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: .55; }
+      85% { opacity: .35; }
+      100% { transform: translateY(calc(-100vh - 60px)) rotate(180deg); opacity: 0; }
+    }
     .conteudo {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 48px 24px 24px;
+      flex: 1; display: flex; align-items: center;
+      justify-content: center; padding: 48px 24px 24px;
     }
-
     .card {
-      max-width: 720px;
-      width: 100%;
-      border: 1px solid var(--neon);
-      border-radius: 16px;
-      padding: 40px 32px;
-      box-shadow: 0 0 25px rgba(0, 255, 136, 0.25);
-      background: #000;
+      max-width: 720px; width: 100%; border: 1px solid var(--neon);
+      border-radius: 16px; padding: 40px 32px;
+      box-shadow: 0 0 25px rgba(0,255,136,.25); background: #000;
     }
-
     h1 {
       color: var(--neon);
-      text-shadow:
-        0 0 8px rgba(0, 255, 136, 0.7),
-        0 0 18px rgba(0, 255, 136, 0.35);
-      font-size: clamp(1.6rem, 4vw, 2rem);
-      line-height: 1.3;
-      margin-bottom: 16px;
-      overflow-wrap: break-word;
+      text-shadow: 0 0 8px rgba(0,255,136,.7), 0 0 18px rgba(0,255,136,.35);
+      font-size: clamp(1.6rem,4vw,2rem); line-height: 1.3;
+      margin-bottom: 16px; overflow-wrap: break-word;
     }
-
-    h2 {
-      color: var(--neon);
-      margin-top: 28px;
-      margin-bottom: 12px;
-      font-size: 1.25rem;
-    }
-
-    p {
-      line-height: 1.7;
-      margin-bottom: 12px;
-    }
-
-    .destaque {
-      color: var(--neon);
-      font-weight: bold;
-    }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 20px;
-    }
-
+    h2 { color: var(--neon); margin: 28px 0 12px; font-size: 1.25rem; }
+    p { line-height: 1.7; margin-bottom: 12px; }
+    .destaque { color: var(--neon); font-weight: bold; }
+    .links { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px; }
     .botao {
-      display: inline-block;
-      padding: 12px 22px;
-      border: 1px solid var(--neon);
-      border-radius: 8px;
-      color: var(--neon);
-      text-decoration: none;
-      font-weight: bold;
-      transition:
-        background-color 0.2s,
-        color 0.2s,
-        box-shadow 0.2s,
-        transform 0.2s;
+      display: inline-block; padding: 12px 22px;
+      border: 1px solid var(--neon); border-radius: 8px;
+      color: var(--neon); text-decoration: none; font-weight: bold;
+      transition: background-color .2s, color .2s, box-shadow .2s, transform .2s;
     }
-
-    .botao:hover,
-    .botao:focus-visible {
-      background: var(--neon);
-      color: #000;
-      box-shadow: 0 0 15px var(--neon);
-      transform: translateY(-3px);
+    .botao:hover, .botao:focus-visible {
+      background: var(--neon); color: #000;
+      box-shadow: 0 0 15px var(--neon); transform: translateY(-3px);
     }
-
-    .botao:focus-visible {
-      outline: 2px solid white;
-      outline-offset: 5px;
-    }
-
-    footer {
-      margin-top: 32px;
-      font-size: 0.85rem;
-      color: #9a9a9a;
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    /* Cenário decorativo no final da página */
-    .cenario {
-      width: 100%;
-      margin-top: 16px;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
+    .botao:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+    footer { margin-top: 32px; font-size: .85rem; color: #9a9a9a; text-align: center; line-height: 1.6; }
+    .cenario { width: 100%; margin-top: 16px; pointer-events: none; overflow: hidden; }
     .cenario svg {
-      display: block;
-      width: 100%;
-      height: clamp(180px, 24vw, 290px);
+      display: block; width: 100%; height: clamp(180px,24vw,290px);
+      animation: brilho-cenario 5s ease-in-out infinite;
     }
-
     .linha-neon {
-      fill: none;
-      stroke: var(--neon);
-      stroke-width: 2;
-      stroke-linecap: square;
-      stroke-linejoin: miter;
+      fill: none; stroke: var(--neon); stroke-width: 2;
+      stroke-linecap: square; stroke-linejoin: miter;
       vector-effect: non-scaling-stroke;
     }
-
-    .contorno-preto {
-      fill: #000;
-      stroke: var(--neon);
-      stroke-width: 2;
-      vector-effect: non-scaling-stroke;
-    }
-
+    .contorno-preto { fill: #000; stroke: var(--neon); stroke-width: 2; vector-effect: non-scaling-stroke; }
+    @keyframes brilho-cenario { 0%,100% { opacity: .7; } 50% { opacity: 1; } }
     @media (max-width: 480px) {
-      .conteudo {
-        padding: 24px 16px 16px;
-      }
-
-      .card {
-        padding: 28px 22px;
-      }
-
-      .botao {
-        flex: 1;
-        text-align: center;
-      }
+      .conteudo { padding: 24px 16px 16px; }
+      .card { padding: 28px 22px; }
+      .botao { flex: 1; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .particula { animation: none; display: none; }
+      .cenario svg { animation: none; }
+      .botao { transition: none; }
+      .botao:hover, .botao:focus-visible { transform: none; }
     }
   </style>
 </head>
-
 <body>
+  <div class="fundo-animado" aria-hidden="true">
+    <span class="particula" style="--x:5%; --tamanho:8px; --duracao:18s; --atraso:-3s;"></span>
+    <span class="particula" style="--x:13%; --tamanho:5px; --duracao:23s; --atraso:-15s;"></span>
+    <span class="particula" style="--x:22%; --tamanho:12px; --duracao:26s; --atraso:-8s;"></span>
+    <span class="particula" style="--x:31%; --tamanho:6px; --duracao:20s; --atraso:-12s;"></span>
+    <span class="particula" style="--x:40%; --tamanho:9px; --duracao:28s; --atraso:-21s;"></span>
+    <span class="particula" style="--x:49%; --tamanho:4px; --duracao:17s; --atraso:-5s;"></span>
+    <span class="particula" style="--x:58%; --tamanho:10px; --duracao:24s; --atraso:-17s;"></span>
+    <span class="particula" style="--x:67%; --tamanho:6px; --duracao:21s; --atraso:-9s;"></span>
+    <span class="particula" style="--x:76%; --tamanho:13px; --duracao:30s; --atraso:-24s;"></span>
+    <span class="particula" style="--x:84%; --tamanho:5px; --duracao:19s; --atraso:-11s;"></span>
+    <span class="particula" style="--x:91%; --tamanho:8px; --duracao:25s; --atraso:-19s;"></span>
+    <span class="particula" style="--x:97%; --tamanho:4px; --duracao:22s; --atraso:-6s;"></span>
+  </div>
   <div class="conteudo">
     <main class="card">
       <h1>Olá, eu sou João Francisco Luciano Pinheiro</h1>
-
-      <p>
-        Profissional de
-        <span class="destaque">suporte e infraestrutura de TI</span>,
-        com experiência em redes, servidores, virtualização,
-        monitoramento e atendimento técnico.
-      </p>
-
+      <p>Profissional de <span class="destaque">suporte e infraestrutura de TI</span>, com experiência em redes, servidores, virtualização, monitoramento e atendimento técnico.</p>
       <h2>Minha área de atuação</h2>
-
-      <p>
-        Trabalho com administração de redes, firewalls, VPNs, VLANs,
-        roteamento, servidores Linux e Windows, virtualização com
-        Proxmox e Hyper-V, além de monitoramento e automação de
-        tarefas de TI.
-      </p>
-
-      <p>
-        Também tenho interesse em desenvolvimento web, criação de
-        relatórios, scripts e soluções que ajudem a facilitar o
-        suporte técnico no dia a dia.
-      </p>
-
+      <p>Trabalho com administração de redes, firewalls, VPNs, VLANs, roteamento, servidores Linux e Windows, virtualização com Proxmox e Hyper-V, além de monitoramento e automação de tarefas de TI.</p>
+      <p>Também tenho interesse em desenvolvimento web, criação de relatórios, scripts e soluções que ajudem a facilitar o suporte técnico no dia a dia.</p>
       <h2>Meus perfis de games</h2>
-
       <div class="links">
-        <a
-          class="botao"
-          href="https://www.trueachievements.com/gamer/JFLPinheiro"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Xbox
-        </a>
-
-        <a
-          class="botao"
-          href="https://steamcommunity.com/id/JFLPinheiro"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Steam
-        </a>
+        <a class="botao" href="https://www.trueachievements.com/gamer/JFLPinheiro" target="_blank" rel="noopener noreferrer">Xbox</a>
+        <a class="botao" href="https://steamcommunity.com/id/JFLPinheiro" target="_blank" rel="noopener noreferrer">Steam</a>
       </div>
-
-      <footer>
-        Site de teste criado para praticar HTML, CSS e GitHub Pages.
-      </footer>
+      <footer>Site de teste criado para praticar HTML, CSS e GitHub Pages.</footer>
     </main>
   </div>
-
-  <!-- Cenário desenhado em SVG, sem imagens externas -->
   <div class="cenario" aria-hidden="true">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 1200 260"
-      preserveAspectRatio="xMidYMax slice"
-      focusable="false"
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" preserveAspectRatio="xMidYMax slice" focusable="false">
       <defs>
-        <!-- Tijolos desencontrados -->
-        <pattern
-          id="tijolos"
-          width="120"
-          height="60"
-          patternUnits="userSpaceOnUse"
-        >
-          <path
-            class="linha-neon"
-            d="
-              M 0 0 H 120
-              M 0 30 H 120
-              M 0 60 H 120
-              M 60 0 V 30
-              M 0 30 V 60
-              M 120 30 V 60
-            "
-          />
+        <pattern id="tijolos" width="120" height="60" patternUnits="userSpaceOnUse">
+          <path class="linha-neon" d="M0 0H120 M0 30H120 M0 60H120 M60 0V30 M0 30V60 M120 30V60"/>
         </pattern>
-
-        <!-- Brilho aplicado somente aos desenhos -->
-        <filter
-          id="brilho"
-          x="-30%"
-          y="-50%"
-          width="160%"
-          height="200%"
-          color-interpolation-filters="sRGB"
-        >
-          <feGaussianBlur
-            in="SourceGraphic"
-            stdDeviation="2.5"
-            result="luz"
-          />
-          <feMerge>
-            <feMergeNode in="luz"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
+        <filter id="brilho" x="-30%" y="-50%" width="160%" height="200%" color-interpolation-filters="sRGB">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="luz"/>
+          <feMerge><feMergeNode in="luz"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
-
-        <!-- Tufo de grama: somente linhas -->
         <g id="grama">
-          <path
-            class="linha-neon"
-            d="
-              M 0 0
-              L 4 -12
-              L 10 -4
-              L 15 -22
-              L 21 -5
-              L 29 -15
-              L 33 0
-            "
-          />
+          <path class="linha-neon" d="M0 0L4 -12L10 -4L15 -22L21 -5L29 -15L33 0"/>
         </g>
-
-        <!-- Bloco suspenso -->
         <g id="bloco">
-          <rect
-            class="contorno-preto"
-            width="44"
-            height="44"
-          />
-          <path
-            class="linha-neon"
-            d="M 0 22 H 44 M 22 0 V 22 M 11 22 V 44 M 33 22 V 44"
-          />
+          <rect class="contorno-preto" width="44" height="44"/>
+          <path class="linha-neon" d="M0 22H44 M22 0V22 M11 22V44 M33 22V44"/>
         </g>
       </defs>
-
       <g filter="url(#brilho)">
-        <!-- Chão de tijolos -->
-        <rect
-          x="-2"
-          y="200"
-          width="1204"
-          height="62"
-          fill="url(#tijolos)"
-        />
-
-        <path
-          class="linha-neon"
-          d="M 0 200 H 1200"
-        />
-
-        <!-- Grama nas bordas dos canos -->
+        <rect x="-2" y="200" width="1204" height="62" fill="url(#tijolos)"/>
+        <path class="linha-neon" d="M0 200H1200"/>
         <use href="#grama" x="35" y="200"/>
         <use href="#grama" x="80" y="200"/>
         <use href="#grama" x="280" y="200"/>
@@ -325,73 +150,18 @@
         <use href="#grama" x="780" y="200"/>
         <use href="#grama" x="1040" y="200"/>
         <use href="#grama" x="1120" y="200"/>
-
-        <!-- Cano esquerdo -->
-        <rect
-          class="contorno-preto"
-          x="160"
-          y="112"
-          width="76"
-          height="88"
-        />
-        <rect
-          class="contorno-preto"
-          x="149"
-          y="90"
-          width="98"
-          height="24"
-        />
-        <path
-          class="linha-neon"
-          d="M 171 125 V 188 M 225 125 V 188"
-        />
-
-        <!-- Cano central menor -->
-        <rect
-          class="contorno-preto"
-          x="628"
-          y="155"
-          width="64"
-          height="45"
-        />
-        <rect
-          class="contorno-preto"
-          x="618"
-          y="134"
-          width="84"
-          height="23"
-        />
-        <path
-          class="linha-neon"
-          d="M 639 168 V 190 M 681 168 V 190"
-        />
-
-        <!-- Cano direito maior -->
-        <rect
-          class="contorno-preto"
-          x="920"
-          y="77"
-          width="86"
-          height="123"
-        />
-        <rect
-          class="contorno-preto"
-          x="908"
-          y="52"
-          width="110"
-          height="27"
-        />
-        <path
-          class="linha-neon"
-          d="M 933 92 V 187 M 993 92 V 187"
-        />
-
-        <!-- Plataforma de tijolos suspensos -->
+        <rect class="contorno-preto" x="160" y="112" width="76" height="88"/>
+        <rect class="contorno-preto" x="149" y="90" width="98" height="24"/>
+        <path class="linha-neon" d="M171 125V188 M225 125V188"/>
+        <rect class="contorno-preto" x="628" y="155" width="64" height="45"/>
+        <rect class="contorno-preto" x="618" y="134" width="84" height="23"/>
+        <path class="linha-neon" d="M639 168V190 M681 168V190"/>
+        <rect class="contorno-preto" x="920" y="77" width="86" height="123"/>
+        <rect class="contorno-preto" x="908" y="52" width="110" height="27"/>
+        <path class="linha-neon" d="M933 92V187 M993 92V187"/>
         <use href="#bloco" x="355" y="58"/>
         <use href="#bloco" x="399" y="58"/>
         <use href="#bloco" x="443" y="58"/>
-
-        <!-- Pequenos blocos à direita -->
         <use href="#bloco" x="740" y="35"/>
         <use href="#bloco" x="784" y="35"/>
       </g>
