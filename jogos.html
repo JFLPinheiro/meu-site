@@ -1,56 +1,60 @@
 <!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#000000"><title>Jogos | João Pinheiro</title>
-<style>
+<!--
+VERSÃO: 2026-10-30_v01_adicao-9-jogos
+DATA: 30/10/2026 — horário de Brasília
+BASE: jogo.html disponível nas Fontes (referido pelo usuário como jogos.html).
+ALTERAÇÕES:
+- Inclusão de nove jogos da imagem, totalizando onze botões.
+- Mantidos Goof Troop e Super Mario Kart, sem duplicação.
+- Caminho de Donkey Kong Country 3 confirmado pelo usuário.
+- Preservados estilo, cenário, navegação Home e lógica de emulação.
+- Adicionado este histórico de versão, sem mudanças de funcionamento.
+LEMBRETE: salvar o HTML mais atualizado nas Fontes antes da próxima alteração.
+-->
+<html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#000000"><title>Jogos | João Pinheiro</title><style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--cenario:#00ac00;--nome:#00ee00;--brilho:126,255,92;--h-cenario:clamp(130px,21vw,260px)}
 body{background:#000;color:#fff;font-family:"Segoe UI",Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column;isolation:isolate}
-
-/* partículas de fundo */
 .fundo{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
 .pixel{position:absolute;bottom:-30px;left:var(--x);width:var(--s);height:var(--s);border:1px solid var(--cenario);box-shadow:0 0 8px rgba(0,172,0,.45);animation:subir var(--d) linear infinite;animation-delay:var(--a);opacity:0}
 @keyframes subir{0%{transform:translateY(0) rotate(0);opacity:0}10%{opacity:.5}85%{opacity:.3}100%{transform:translateY(calc(-100vh - 60px)) rotate(180deg);opacity:0}}
-
-/* conteúdo centralizado */
 .conteudo{flex:1;display:flex;align-items:center;justify-content:center;padding:clamp(28px,6vw,72px) 20px}
-.card{max-width:720px;width:100%;padding:clamp(22px,4vw,36px) clamp(18px,4vw,36px);background:#000;border-radius:10px;text-align:center;
-  box-shadow:0 0 0 1px rgba(var(--brilho),.10),0 0 22px rgba(var(--brilho),.16)}
+.card{max-width:720px;width:100%;padding:clamp(22px,4vw,36px) clamp(18px,4vw,36px);background:#000;border-radius:10px;text-align:center;box-shadow:0 0 0 1px rgba(var(--brilho),.10),0 0 22px rgba(var(--brilho),.16)}
 h1{font-size:clamp(1.6rem,4vw,2rem);color:var(--nome);text-shadow:0 0 10px rgba(var(--brilho),.22);line-height:1.3;margin-bottom:16px;overflow-wrap:break-word}
-h1 .saudacao{color:#fff}
-h2{font-size:1.25rem;color:#fff;margin:28px 0 12px}
-p{line-height:1.7;margin-bottom:12px;color:#fff}
-.destaque{color:#fff;font-weight:bold}
-
-/* botões dos games */
+h1 .saudacao{color:#fff}h2{font-size:1.25rem;color:#fff;margin:28px 0 12px}p{line-height:1.7;margin-bottom:12px;color:#fff}.destaque{color:#fff;font-weight:bold}
 .links{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:22px}
 .botao{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-width:150px;padding:13px 26px;border-radius:8px;color:#fff;text-decoration:none;font-weight:bold;font-size:1.05rem;letter-spacing:.2px;border:2px solid transparent;transition:transform .2s,box-shadow .2s,background .2s,border-color .2s}
-.botao .icone{flex:none}
-.vb{vector-effect:non-scaling-stroke}
+.botao .icone{flex:none}.vb{vector-effect:non-scaling-stroke}
 .botao.xbox{background:#107c10;border-color:#2fa82f;box-shadow:0 2px 10px rgba(16,124,16,.45)}
 .botao.xbox:hover,.botao.xbox:focus-visible{background:#159315;border-color:#5bd35b;box-shadow:0 4px 16px rgba(16,124,16,.7);transform:translateY(-2px)}
 .botao.steam{background:linear-gradient(180deg,#2a475e 0%,#171a21 100%);border-color:#66c0f4;box-shadow:0 2px 10px rgba(102,192,244,.25)}
 .botao.steam:hover,.botao.steam:focus-visible{background:linear-gradient(180deg,#37607f 0%,#1b2838 100%);border-color:#a3dcff;box-shadow:0 4px 16px rgba(102,192,244,.5);transform:translateY(-2px)}
 .botao:focus-visible{outline:2px solid #fff;outline-offset:5px}
-
 footer{margin-top:32px;font-size:.85rem;line-height:1.6;color:#fff;text-align:center}
-
-/* cenário retrô (topo e rodapé espelhados) */
 .cenario{position:relative;width:100%;height:var(--h-cenario);overflow:hidden;pointer-events:none;flex:none}
 .cenario svg{position:absolute;top:0;left:50%;height:var(--h-cenario);width:calc(var(--h-cenario)*4.6154);transform:translateX(-50%);overflow:visible;display:block;animation:brilho 5s ease-in-out infinite}
-.linha{fill:none;stroke:var(--cenario);stroke-width:2;vector-effect:non-scaling-stroke}
-.solido{fill:#000;stroke:var(--cenario);stroke-width:2;vector-effect:non-scaling-stroke}
-.nuvem{animation:flutuar 7s ease-in-out infinite}
-.segunda{animation-delay:-3.5s}
-@keyframes flutuar{50%{transform:translateY(-7px)}}
-@keyframes brilho{0%,100%{opacity:.75}50%{opacity:1}}
-
+.linha{fill:none;stroke:var(--cenario);stroke-width:2;vector-effect:non-scaling-stroke}.solido{fill:#000;stroke:var(--cenario);stroke-width:2;vector-effect:non-scaling-stroke}
+.nuvem{animation:flutuar 7s ease-in-out infinite}.segunda{animation-delay:-3.5s}
+@keyframes flutuar{50%{transform:translateY(-7px)}}@keyframes brilho{0%,100%{opacity:.75}50%{opacity:1}}
 @media(max-width:480px){.conteudo{padding:24px 14px}.card{padding:22px 14px}.botao{flex:1 1 140px}}
 @media(prefers-reduced-motion:reduce){.pixel{display:none}.nuvem,.cenario svg{animation:none}.botao{transition:none}.botao:hover,.botao:focus-visible{transform:none}}
-.card{max-width:1050px}button.botao{font-family:inherit;cursor:pointer}button[aria-pressed=true]{border-color:#fff}#tela{height:clamp(300px,65vw,700px);margin-top:24px;border:1px solid #00ac00;border-radius:8px;overflow:hidden}#emulador{height:100%;width:100%;border:0;background:#000}</style></head>
+.card{max-width:1050px}button.botao{font-family:inherit;cursor:pointer}button[aria-pressed=true]{border-color:#fff}#tela{height:clamp(300px,65vw,700px);margin-top:24px;border:1px solid #00ac00;border-radius:8px;overflow:hidden}#emulador{height:100%;width:100%;border:0;background:#000}
+</style></head>
 <body><div class="fundo" aria-hidden="true"><span class="pixel" style="--x:5%;--s:4px;--d:18s;--a:-0s"></span><span class="pixel" style="--x:13%;--s:6px;--d:19s;--a:-2s"></span><span class="pixel" style="--x:22%;--s:8px;--d:20s;--a:-4s"></span><span class="pixel" style="--x:31%;--s:10px;--d:21s;--a:-6s"></span><span class="pixel" style="--x:40%;--s:12px;--d:22s;--a:-8s"></span><span class="pixel" style="--x:49%;--s:4px;--d:23s;--a:-10s"></span><span class="pixel" style="--x:58%;--s:6px;--d:24s;--a:-12s"></span><span class="pixel" style="--x:67%;--s:8px;--d:25s;--a:-14s"></span><span class="pixel" style="--x:76%;--s:10px;--d:26s;--a:-16s"></span><span class="pixel" style="--x:84%;--s:12px;--d:27s;--a:-18s"></span><span class="pixel" style="--x:91%;--s:4px;--d:28s;--a:-20s"></span><span class="pixel" style="--x:97%;--s:6px;--d:29s;--a:-22s"></span></div>
 <div class="cenario topo" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" focusable="false"><defs><filter id="glow-topo" filterUnits="userSpaceOnUse" x="-3000" y="-30" width="7200" height="320"><feGaussianBlur in="SourceGraphic" stdDeviation="1.6" result="luz"/><feMerge><feMergeNode in="luz"/><feMergeNode in="SourceGraphic"/></feMerge></filter><pattern id="tijolos-topo" width="120" height="60" patternUnits="userSpaceOnUse"><path class="linha" d="M0 0H120 M0 30H120 M0 60H120 M60 0V30 M0 30V60 M120 30V60"/></pattern></defs><g filter="url(#glow-topo)"><rect x="-3000" y="-2" width="7200" height="64" fill="url(#tijolos-topo)"/><path class="linha" d="M-3000 62H4200"/><rect class="solido" x="200" y="62" width="86" height="123"/><rect class="solido" x="189" y="183" width="108" height="24"/><path class="linha" d="M211 62V171 M275 62V171"/><rect class="solido" x="600" y="62" width="76" height="88"/><rect class="solido" x="589" y="148" width="98" height="24"/><path class="linha" d="M611 62V136 M665 62V136"/><rect class="solido" x="1010" y="62" width="64" height="45"/><rect class="solido" x="999" y="105" width="86" height="24"/><path class="linha" d="M1021 62V93 M1063 62V93"/><g class="nuvem"><path class="linha" transform="translate(40 95)" d="M0 40V20H20V8H40V0H70V8H90V20H110V40Z"/></g><g class="nuvem segunda"><path class="linha" transform="translate(388 84)" d="M0 40V20H20V8H40V0H70V8H90V20H110V40Z"/></g><g class="nuvem"><path class="linha" transform="translate(788 100)" d="M0 40V20H20V8H40V0H70V8H90V20H110V40Z"/></g></g></svg></div>
 <div class="conteudo"><main class="card"><nav class="links" style="margin:0 0 24px"><a class="botao xbox" href="index.html">⌂ Home</a></nav>
 <h1>🎮 Jogos</h1><p>Clique no nome do jogo para carregar e jogar.</p>
-<div class="links" id="lista-jogos"><button class="botao xbox" type="button" data-rom="roms/goof-troop.sfc" data-name="Goof Troop">Goof Troop</button><button class="botao xbox" type="button" data-rom="roms/super-mario-kart.sfc" data-name="Super Mario Kart">Super Mario Kart</button></div>
+<div class="links" id="lista-jogos"><button class="botao xbox" type="button" data-rom="roms/donkey-kong-country.sfc" data-name="Donkey Kong Country">Donkey Kong Country</button>
+<button class="botao xbox" type="button" data-rom="roms/donkey-kong-country-2-diddys-kong-quest.sfc" data-name="Donkey Kong Country 2 — Diddy&#x27;s Kong Quest">Donkey Kong Country 2 — Diddy&#x27;s Kong Quest</button>
+<button class="botao xbox" type="button" data-rom="roms/donkey-kong-country-3-dixie-kongs-double-trouble.sfc" data-name="Donkey Kong Country 3 — Dixie Kong&#x27;s Double Trouble">Donkey Kong Country 3 — Dixie Kong&#x27;s Double Trouble</button>
+<button class="botao xbox" type="button" data-rom="roms/goof-troop.sfc" data-name="Goof Troop">Goof Troop</button>
+<button class="botao xbox" type="button" data-rom="roms/mortal-kombat.sfc" data-name="Mortal Kombat">Mortal Kombat</button>
+<button class="botao xbox" type="button" data-rom="roms/mortal-kombat-2.sfc" data-name="Mortal Kombat 2">Mortal Kombat 2</button>
+<button class="botao xbox" type="button" data-rom="roms/super-mario-all-stars.sfc" data-name="Super Mario All-Stars">Super Mario All-Stars</button>
+<button class="botao xbox" type="button" data-rom="roms/super-mario-kart.sfc" data-name="Super Mario Kart">Super Mario Kart</button>
+<button class="botao xbox" type="button" data-rom="roms/super-mario-world-2-yoshis-island.sfc" data-name="Super Mario World 2 — Yoshi&#x27;s Island">Super Mario World 2 — Yoshi&#x27;s Island</button>
+<button class="botao xbox" type="button" data-rom="roms/super-mario-world.sfc" data-name="Super Mario World">Super Mario World</button>
+<button class="botao xbox" type="button" data-rom="roms/super-street-fighter-2.sfc" data-name="Super Street Fighter 2">Super Street Fighter 2</button></div>
 <p id="status" role="status" aria-live="polite" style="margin-top:20px">Super Nintendo • Jogos no navegador</p>
 <section id="tela" hidden><iframe id="emulador" title="Emulador SNES" allow="autoplay; fullscreen; gamepad" allowfullscreen></iframe></section>
 <footer>João Pinheiro | TI e Games</footer></main></div>
