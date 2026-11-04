@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <!--
-VERSÃO: 2026-11-03_v05_controle-primario-teclado-reserva
-DATA: 03/11/2026 — horário de Brasília
-BASE: jogo_2026-11-03_v04_controle-e-resolucao.html salvo nas Fontes.
-VERSÃO ANTERIOR: jogo_2026-11-03_v04_controle-e-resolucao.html
+VERSÃO: 2026-11-04_v06_analogico-generico
+DATA: 04/11/2026 — horário de Brasília
+BASE: jogo_2026-11-03_v05_controle-primario-teclado-reserva.html publicada no GitHub.
+VERSÃO ANTERIOR: jogo_2026-11-03_v05_controle-primario-teclado-reserva.html
 ALTERAÇÕES:
 - Controle físico definido como opção primária de jogo.
+- Adicionada ponte do analógico esquerdo para os direcionais do teclado.
+- Compatível com Xbox 360 e qualquer controle que exponha eixos analógicos.
+- Limiar de ativação definido em 45% do movimento do analógico.
+- Evita conflito: o direcional digital do controle continua funcionando.
 - Teclado mantido como alternativa automática quando nenhum controle for detectado.
 - Status atualizado para informar se o jogo está usando controle ou teclado.
 - Adicionadas instruções visíveis do mapeamento básico do teclado.
 - Mantidos detecção de resolução, ajuste responsivo 4:3, jogos e configuração do EmulatorJS.
-MOTIVO: garantir que o jogo funcione mesmo sem controle conectado, priorizando o controle quando disponível.
+MOTIVO: fazer o analógico esquerdo funcionar em jogos SNES, inclusive no controle Xbox 360 e em controles genéricos.
 TESTES:
+- Testar analógico esquerdo nas quatro direções.
+- Testar direcional digital, A/B/X/Y, Start e Select no controle e no teclado.
 - Abrir sem controle: o status deve indicar uso do teclado.
 - Conectar controle e pressionar um botão: o status deve mudar para controle detectado.
 - Desconectar o controle: o status deve voltar a indicar teclado.
-- Testar direcionais, A/B/X/Y, Start e Select no controle e no teclado.
 LEMBRETE: salvar este arquivo na pasta Fontes após validar.
 -->
 <html lang="pt-BR"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#000000"><title>Jogos | João Pinheiro</title>
@@ -45,12 +50,9 @@ p{line-height:1.7;margin-bottom:12px;color:#fff}
 footer{margin-top:32px;font-size:.85rem;line-height:1.6;color:#fff;text-align:center}
 .cenario{position:relative;width:100%;height:var(--h-cenario);overflow:hidden;pointer-events:none;flex:none}
 .cenario svg{position:absolute;top:0;left:50%;height:var(--h-cenario);width:calc(var(--h-cenario)*4.6154);transform:translateX(-50%);overflow:visible;display:block;animation:brilho 5s ease-in-out infinite}
-.linha{fill:none;stroke:var(--cenario);stroke-width:2;vector-effect:non-scaling-stroke}
-.solido{fill:#000;stroke:var(--cenario);stroke-width:2;vector-effect:non-scaling-stroke}
-.nuvem{animation:flutuar 7s ease-in-out infinite}
-.segunda{animation-delay:-3.5s}
-@keyframes flutuar{50%{transform:translateY(-7px)}}
-@keyframes brilho{0%,100%{opacity:.75}50%{opacity:1}}
+.linha{fill:none;stroke:var(--cenario);stroke-width:2;vector-effect:non-scaling-stroke}.solido{fill:#000;stroke:var(--cenario);stroke-width:2;vector-effect:non-scaling-stroke}
+.nuvem{animation:flutuar 7s ease-in-out infinite}.segunda{animation-delay:-3.5s}
+@keyframes flutuar{50%{transform:translateY(-7px)}}@keyframes brilho{0%,100%{opacity:.75}50%{opacity:1}}
 @media(max-width:480px){.conteudo{padding:24px 14px}.card{padding:22px 14px}.botao{flex:1 1 140px}}
 @media(prefers-reduced-motion:reduce){.pixel{display:none}.nuvem,.cenario svg{animation:none}.botao{transition:none}.botao:hover,.botao:focus-visible{transform:none}}
 .card{max-width:1050px}button.botao{font-family:inherit;cursor:pointer}button[aria-pressed=true]{border-color:#fff}
@@ -76,7 +78,7 @@ function atualizarControle(){
  const pads=navigator.getGamepads ? navigator.getGamepads() : [];
  const pad=Array.from(pads).find(p=>p&&p.connected);
  if(pad){
-  controleStatus.textContent='🎮 Controle primário ativo: '+pad.id+'. O teclado continua disponível como alternativa.';
+  controleStatus.textContent='🎮 Controle primário ativo: '+pad.id+'. Analógico e teclado disponíveis.';
   controleStatus.style.color='#9eff9e';
  }else{
   controleStatus.textContent='🎮 Controle é a opção primária. Nenhum controle detectado — o teclado será usado automaticamente.';
@@ -85,7 +87,7 @@ function atualizarControle(){
 }
 window.addEventListener('gamepadconnected',e=>{
  atualizarControle();
- controleStatus.textContent='🎮 Controle primário conectado: '+e.gamepad.id+'. O teclado continua disponível como alternativa.';
+ controleStatus.textContent='🎮 Controle primário conectado: '+e.gamepad.id+'. Analógico e teclado disponíveis.';
  controleStatus.style.color='#9eff9e';
 });
 window.addEventListener('gamepaddisconnected',e=>{
@@ -120,7 +122,7 @@ document.querySelectorAll('[data-rom]').forEach(button=>{
    document.querySelectorAll('[data-rom]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
    document.getElementById('tela').hidden=false;
    const options=JSON.stringify({name,url}).replace(/</g,'\u003c');
-   const code='const config='+options+';window.EJS_player="#game";window.EJS_core="snes";window.EJS_gameName=config.name;window.EJS_gameUrl=config.url;window.EJS_pathtodata="https://cdn.emulatorjs.org/stable/data/";window.EJS_startOnLoaded=true;window.EJS_color="#00ac00";const loader=document.createElement("script");loader.src=window.EJS_pathtodata+"loader.js";loader.onerror=()=>{document.getElementById("game").textContent="Falha ao carregar emulador. Verifique a conexão.";};document.body.appendChild(loader);';
+   const code='const config='+options+';window.EJS_player="#game";window.EJS_core="snes";window.EJS_gameName=config.name;window.EJS_gameUrl=config.url;window.EJS_pathtodata="https://cdn.emulatorjs.org/stable/data/";window.EJS_startOnLoaded=true;window.EJS_color="#00ac00";const loader=document.createElement("script");loader.src=window.EJS_pathtodata+"loader.js";loader.onerror=()=>{document.getElementById("game").textContent="Falha ao carregar emulador. Verifique a conexão.";};document.body.appendChild(loader);(function(){const estado={ArrowLeft:false,ArrowRight:false,ArrowUp:false,ArrowDown:false};const enviar=(tipo,key,code)=>{const e=new KeyboardEvent(tipo,{key:key,code:code,keyCode:{ArrowLeft:37,ArrowRight:39,ArrowUp:38,ArrowDown:40}[key],which:{ArrowLeft:37,ArrowRight:39,ArrowUp:38,ArrowDown:40}[key],bubbles:true,cancelable:true});window.dispatchEvent(e);document.dispatchEvent(e);};function verificar(){const pads=navigator.getGamepads?navigator.getGamepads():[];for(const pad of pads){if(!pad||!pad.connected||pad.axes.length<2)continue;const x=pad.axes[0],y=pad.axes[1];const direcoes={ArrowLeft:x<-.45,ArrowRight:x>.45,ArrowUp:y<-.45,ArrowDown:y>.45};for(const key in direcoes){if(direcoes[key]&&!estado[key]){estado[key]=true;enviar("keydown",key,key);}else if(!direcoes[key]&&estado[key]){estado[key]=false;enviar("keyup",key,key);}}}requestAnimationFrame(verificar);}verificar();})();';
    document.getElementById('emulador').srcdoc='<!doctype html><html><head><meta charset="utf-8"><style>html,body,#game{width:100%;height:100%;margin:0;background:#000;color:#fff;overflow:hidden}</style></head><body><div id="game"></div><script>'+code+'<'+ '/script></body></html>';
    statusText.textContent=name+' — aguarde o carregamento do emulador. Para trocar, clique em outro jogo.';
   }catch(error){if(id===requestId)statusText.textContent=error.message;}
